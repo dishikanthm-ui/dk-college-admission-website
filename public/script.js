@@ -1,26 +1,42 @@
-document.getElementById("enquiryForm").addEventListener("submit",function(e){
+/* Admission Enquiry Form Submit */
 
-e.preventDefault()
+document.addEventListener("DOMContentLoaded", function () {
 
-const data={
+  const form = document.getElementById("enquiryForm");
 
-name:document.getElementById("name").value,
-email:document.getElementById("email").value,
-phone:document.getElementById("phone").value,
-course:document.getElementById("course").value,
-message:document.getElementById("message").value
+  if (form) {
 
-}
+    form.addEventListener("submit", function (e) {
 
-fetch("/enquiry",{
+      e.preventDefault();
 
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify(data)
+      const data = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        course: document.getElementById("course").value,
+        message: document.getElementById("message").value
+      };
 
-})
+      fetch("/enquiry", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+      .then(res => res.text())
+      .then(response => {
+        alert(response);
+        form.reset();
+      })
+      .catch(error => {
+        console.error(error);
+        alert("Error submitting enquiry");
+      });
 
-.then(res=>res.text())
-.then(data=>alert(data))
+    });
 
-})
+  }
+
+});

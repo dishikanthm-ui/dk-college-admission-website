@@ -1,47 +1,63 @@
-const express=require("express")
-const bodyParser=require("body-parser")
-const cors=require("cors")
-const db=require("./db")
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const pool = require("./db");
 
-const app=express()
+const app = express();
 
-app.use(cors())
-app.use(bodyParser.json())
-app.use(express.static("public"))
+/* middleware */
 
-/* admission enquiry */
+app.use(cors());
+app.use(bodyParser.json());
+app.use(express.static("public"));
 
-app.post("/enquiry",(req,res)=>{
+/* test route */
 
-const {name,email,phone,course,message}=req.body
+app.get("/", (req, res) => {
+  res.send("DK College of Engineering Website Running");
+});
 
-const sql="INSERT INTO enquiries(name,email,phone,course,message) VALUES(?,?,?,?,?)"
+/* admission enquiry form API */
 
-db.query(sql,[name,email,phone,course,message],(err,result)=>{
+app.post("/enquiry", async (req, res) => {
+  try {
 
-if(err){
-res.send("error")
-}else{
-res.send("Enquiry Submitted Successfully")
-}
+    const { name, email, phone, course, message } = req.body;
 
-})
+    const query =
+      "INSERT INTO enquiries(name,email,phone,course,message) VALUES($1,$2,$3,$4,$5)";
 
-})
+    await pool.query(query, [name, email, phone, course, message]);
 
-/* portfolio */
+    res.send("Enquiry Submitted Successfully");
 
-app.get("/portfolio",(req,res)=>{
+  } catch (error) {
 
-db.query("SELECT * FROM portfolio",(err,result)=>{
+    console.log(error);
+    res.status(500).send("Database Error");
 
-if(err) throw err
-res.json(result)
+  }
+});
 
-})
+/* CREATE TABLE AUTOMATICALLY */
 
-})
+pool.query(`
+CREATE TABLE IF NOT EXISTS enquiries(
+id SERIAL PRIMARY KEY,
+name VARCHAR(100),
+email VARCHAR(100),
+phone VARCHAR(20),
+course VARCHAR(100),
+message TEXT
+);
+`)
+.then(()=>console.log("Table ready"))
+.catch(err=>console.log(err));
 
-app.listen(3000,()=>{
-console.log("Server running on port 3000")
-})
+/* start server */
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log("Server running on port", PORT);
+});
