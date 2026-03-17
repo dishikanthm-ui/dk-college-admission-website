@@ -1,0 +1,182 @@
+body{
+margin:0;
+font-family:Verdana, Geneva, Tahoma, sans-serif;
+background:#0f172a;
+color:rgb(255, 255, 255);
+}
+
+header{
+display:flex;
+justify-content:space-between;
+padding:20px;
+background:#001986;
+}
+
+nav a{
+color:white;
+margin:10px;
+text-decoration:none;
+font-size:16px;
+}
+
+.hero{
+height:90vh;
+background:
+linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+url("college\ hero.jpg");
+
+background-size:cover;
+background-position:center;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+
+color:rgb(255, 196, 0);
+font-size:70px;
+text-align:center;
+}
+
+.courses{
+padding:50px;
+text-align:center;
+}
+
+.course{
+display:inline-block;
+margin:20px;
+}
+
+.course img{
+width:300px;
+height:200px;
+border-radius:10px;
+}
+
+
+.form{
+padding:50px;
+text-align:center;
+}
+
+form input,form textarea,form select{
+display:block;
+width:400px;
+margin:15px auto;
+padding:15px;
+}
+
+button{
+padding:10px 20px;
+background:#eb9c25;
+color:white;
+border:none;
+}
+
+.portfolio{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:linear-gradient(45deg,#2563eb,#7c3aed);
+}
+
+.profile{
+width:200px;
+border-radius:50%;
+}
+
+.btn{
+padding:10px 20px;
+background:white;
+color:black;
+text-decoration:none;
+margin-top:20px;
+}
+.about{
+padding:60px;
+text-align:center;
+}
+
+.about-container{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:40px;
+flex-wrap:wrap;
+margin-top:30px;
+}
+
+.about-img{
+width:450px;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,0.5);
+}
+
+.about-text{
+max-width:500px;
+font-size:18px;
+line-height:1.6;
+}
+.courses, .faculty, .labs, .placement{
+padding:60px;
+text-align:center;
+}
+
+.course, .faculty-card, .lab-card, .placement-card{
+display:inline-block;
+margin:20px;
+}
+
+.course img, .faculty-card img, .lab-card img, .placement-card img{
+width:280px;
+height:180px;
+border-radius:10px;
+box-shadow:0 10px 20px rgba(0,0,0,0.5);
+}
+
+.faculty-card img{
+width:200px;
+height:200px;
+border-radius:50%;
+}
+
+h2{
+margin-bottom:35px;
+font-size:32px;
+}
+.portfolio-section{
+padding:80px;
+text-align:center;
+}
+
+.portfolio-card{
+width:400px;
+margin:auto;
+background:#1b2130;
+padding:40px;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.6);
+}
+
+.profile-img{
+width:200px;
+height:200px;
+border-radius:60%;
+border:5px solid rgb(116, 116, 116);
+margin-bottom:20px;
+}
+
+.portfolio-card h2{
+margin:10px 0;
+}
+
+.portfolio-card h3{
+color:#60a5fa;
+}
+
+.portfolio-card h4{
+color:#a5b4fc;
+}
