@@ -16,7 +16,7 @@ const db = mysql.createConnection({
   host: "gateway01-privatelink.ap-southeast-1.prod.aws.tidbcloud.com",
   port: 4000,
   user: "3yxbg8HYxZg2x3A.root",
-  password: "ch8xHEdJJzFOKxJe",
+  password: "XyRCBz2tjTqP7nhN",
   database: "dkcollege",
   ssl: {
     rejectUnauthorized: true
