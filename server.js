@@ -1,63 +1,30 @@
 const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const pool = require("./db");
+const db = require("./db");
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 
-/* middleware */
+app.post("/enquiry",(req,res)=>{
+  const {name,email,phone,course,message} = req.body;
 
-app.use(cors());
-app.use(bodyParser.json());
-app.use(express.static("public"));
-
-/* test route */
-
-app.get("/", (req, res) => {
-  res.send("DK College of Engineering Website Running");
+  db.query(
+    "INSERT INTO enquiries(name,email,phone,course,message) VALUES (?,?,?,?,?)",
+    [name,email,phone,course,message],
+    (err,result)=>{
+      if(err) return res.send(err);
+      res.send("Enquiry submitted");
+    }
+  );
 });
 
-/* admission enquiry form API */
-
-app.post("/enquiry", async (req, res) => {
-  try {
-
-    const { name, email, phone, course, message } = req.body;
-
-    const query =
-      "INSERT INTO enquiries(name,email,phone,course,message) VALUES($1,$2,$3,$4,$5)";
-
-    await pool.query(query, [name, email, phone, course, message]);
-
-    res.send("Enquiry Submitted Successfully");
-
-  } catch (error) {
-
-    console.log(error);
-    res.status(500).send("Database Error");
-
-  }
+app.get("/enquiries",(req,res)=>{
+  db.query("SELECT * FROM enquiries",(err,result)=>{
+    if(err) return res.send(err);
+    res.json(result);
+  });
 });
 
-/* CREATE TABLE AUTOMATICALLY */
-
-pool.query(`
-CREATE TABLE IF NOT EXISTS enquiries(
-id SERIAL PRIMARY KEY,
-name VARCHAR(100),
-email VARCHAR(100),
-phone VARCHAR(20),
-course VARCHAR(100),
-message TEXT
-);
-`)
-.then(()=>console.log("Table ready"))
-.catch(err=>console.log(err));
-
-/* start server */
-
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log("Server running on port", PORT);
+app.listen(3000,()=>{
+  console.log("Server running on port 3000");
 });

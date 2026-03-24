@@ -1,22 +1,22 @@
-const { Pool } = require("pg");
+const mysql = require("mysql2");
 
-/* Render database connection */
-
-const pool = new Pool({
-  connectionString: "postgresql://dkuser:t4mmD9H4jkoyiy9nmWAsDYkkQDiWzodg@dpg-d6sjonnpm1nc73bdj6q0-a.singapore-postgres.render.com/dkcollege",
+const db = mysql.createConnection({
+  host: "gateway01-privatelink.ap-southeast-1.prod.aws.tidbcloud.com",
+  port: 4000,
+  user: "3yxbg8HYxZg2x3A.root",
+  password: "ch8xHEdJJzFOKxJe",
+  database: "dkcollege",
   ssl: {
-    rejectUnauthorized: false
+    rejectUnauthorized: true
   }
 });
 
-/* test connection */
-
-pool.connect((err) => {
-  if (err) {
-    console.error("Database connection error:", err);
+db.connect(err=>{
+  if(err){
+    console.log("Database error",err);
   } else {
-    console.log("Database connected successfully");
+    console.log("TiDB Connected");
   }
 });
 
-module.exports = pool;
+module.exports = db;
