@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Database connection (TiDB / MySQL)
 const db = mysql.createConnection({
-  host:"gateway01-privatelink.ap-southeast-1.prod.aws.tidbcloud.com",
+  host:"gateway01.ap-southeast-1.prod.aws.tidbcloud.com",
   port: 4000,
   user:"3yxbg8HYxZg2x3A.root",
   password:"XyRCBz2tjTqP7nhN",
